@@ -3,37 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080a12">
+<meta name="theme-color" content="#120305">
 <title>YUTA xX | Gaming Profile</title>
 <style>
-:root{--bg:#080a12;--panel:rgba(17,21,36,.82);--line:rgba(130,155,255,.22);--text:#f3f5ff;--muted:#9ba5c2;--accent:#8c7bff;--accent2:#42e8ff}
+:root{--bg:#120305;--panel:rgba(25,10,14,.85);--line:rgba(255,130,150,.22);--text:#f3f5ff;--muted:#c29b9f;--accent:#ff7b8c;--accent2:#ff426c}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(ellipse at 15% 10%,#20204c 0,transparent 38%),radial-gradient(ellipse at 90% 80%,#0d3542 0,transparent 32%),var(--bg);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(150,170,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(150,170,255,.1) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent)}
-.orb{position:fixed;width:240px;height:240px;border-radius:50%;filter:blur(75px);opacity:.18;pointer-events:none;animation:float 10s ease-in-out infinite alternate}.orb.one{background:#7862ff;top:12%;left:-100px}.orb.two{background:#00c8e8;right:-100px;bottom:10%;animation-delay:-5s}
-@keyframes float{to{transform:translate(55px,-35px) scale(1.18)}}@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{50%{box-shadow:0 0 28px #8173ff55,0 0 0 7px #8173ff12}}@keyframes spin{to{transform:rotate(360deg)}}
+body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle, #2b080c 0%, #120305 60%, #050001 100%);overflow-x:hidden;position:relative}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(rgba(255,150,170,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,150,170,.1) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent)}
+.orb{position:fixed;width:240px;height:240px;border-radius:50%;filter:blur(75px);opacity:.18;pointer-events:none;animation:float 10s ease-in-out infinite alternate}.orb.one{background:#ff6278;top:12%;left:-100px}.orb.two{background:#ff0048;right:-100px;bottom:10%;animation-delay:-5s}
+@keyframes float{to{transform:translate(55px,-35px) scale(1.18)}}@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{50%{box-shadow:0 0 28px #ff738155,0 0 0 7px #ff738112}}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Cherry Blossom Petal Animation Styles */
+.petal {
+    position: fixed;
+    top: -10%;
+    background-color: #ffb7c5;
+    border-radius: 150% 0 150% 0;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fall linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 183, 197, 0.6));
+}
+@keyframes fall {
+    0% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(50vh) rotate(180deg) translateX(50px) scale(0.9);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(105vh) rotate(360deg) translateX(-50px) scale(0.8);
+    }
+}
+
 .wrap{width:min(920px,calc(100% - 32px));margin:0 auto;padding:28px 0 40px;position:relative}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;color:var(--muted);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
 .live{display:inline-flex;align-items:center;gap:8px}.dot{width:7px;height:7px;border-radius:50%;background:#58f0b2;box-shadow:0 0 12px #58f0b2}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:24px;backdrop-filter:blur(18px);box-shadow:0 25px 80px #0005;overflow:hidden;animation:rise .7s both}
-.cover{height:190px;position:relative;background:linear-gradient(125deg,#16162f,#171d39 45%,#073c4a);overflow:hidden}
-.cover:before{content:"";position:absolute;inset:-60%;background:repeating-linear-gradient(120deg,transparent 0 34px,#a9b4ff0c 35px 36px);transform:rotate(-5deg)}
-.cover:after{content:"";position:absolute;width:360px;height:360px;border:1px solid #a3aaff2a;border-radius:50%;right:7%;top:-210px;box-shadow:0 0 0 32px #a3aaff08,0 0 0 64px #a3aaff06}
-.cover-label{position:absolute;left:26px;bottom:22px;font-size:.72rem;letter-spacing:.25em;color:#cbd3ff;text-transform:uppercase}
+.cover{height:190px;position:relative;background:linear-gradient(125deg,#2f1619,#39171d 45%,#4a0710);overflow:hidden}
+.cover:before{content:"";position:absolute;inset:-60%;background:repeating-linear-gradient(120deg,transparent 0 34px,#ffa9b40c 35px 36px);transform:rotate(-5deg)}
+.cover:after{content:"";position:absolute;width:360px;height:360px;border:1px solid #ffa3af2a;border-radius:50%;right:7%;top:-210px;box-shadow:0 0 0 32px #ffa3af08,0 0 0 64px #ffa3af06}
+.cover-label{position:absolute;left:26px;bottom:22px;font-size:.72rem;letter-spacing:.25em;color:#ffcbd3;text-transform:uppercase}
 .profile{padding:0 28px 28px}
 .profile-head{display:flex;align-items:end;gap:18px;margin-top:-48px;position:relative;flex-wrap:wrap}
-.avatar{width:112px;height:112px;flex:none;border-radius:28px;border:3px solid #111528;background:linear-gradient(135deg,#8c7bff,#42e8ff);display:grid;place-items:center;font-size:2.2rem;font-weight:900;color:#0b0d19;box-shadow:0 0 0 1px #a9b6ff55,0 0 28px #8173ff35;animation:pulse 4s infinite}
+.avatar{width:112px;height:112px;flex:none;border-radius:28px;border:3px solid #190a0e;background:linear-gradient(135deg,#ff7b8c,#ff4288);display:grid;place-items:center;font-size:2.2rem;font-weight:900;color:#190a0e;box-shadow:0 0 0 1px #ffb6cc55,0 0 28px #ff738135;animation:pulse 4s infinite}
 .heading{flex:1;min-width:170px;padding-bottom:5px}.heading h1{margin:0;font-size:clamp(2rem,6vw,3rem);letter-spacing:.08em;line-height:1.1}.handle{color:var(--muted);margin-top:7px;font-size:.92rem}
-.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #8c7bff66;color:#d9d4ff;background:#8c7bff16;border-radius:999px;padding:7px 11px;font-size:.72rem;letter-spacing:.06em;margin-bottom:5px}
-.bio{margin:24px 0 20px;color:#c1c8df;line-height:1.7;max-width:620px}.bio strong{color:white}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.tag{padding:8px 11px;border-radius:10px;background:#ffffff07;border:1px solid #ffffff12;color:#b9c4e6;font-size:.78rem}
+.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #ff7b8c66;color:#ffd4d9;background:#ff7b8c16;border-radius:999px;padding:7px 11px;font-size:.72rem;letter-spacing:.06em;margin-bottom:5px}
+.bio{margin:24px 0 20px;color:#dfc1c4;line-height:1.7;max-width:620px}.bio strong{color:white}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.tag{padding:8px 11px;border-radius:10px;background:#ffffff07;border:1px solid #ffffff12;color:#e6b9c0;font-size:.78rem}
 .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
-.panel{background:#0a0d18a8;border:1px solid #ffffff12;border-radius:18px;padding:18px;min-width:0}.panel h2{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#aab4d5;margin:0 0 15px}
-.links{display:grid;grid-template-columns:1fr 1fr;gap:10px}.link{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ffffff12;border-radius:13px;color:var(--text);text-decoration:none;background:#ffffff04;transition:.2s}.link:hover{transform:translateY(-3px);border-color:#8c7bff88;background:#8c7bff10}.link-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#8c7bff20;color:#c7c0ff;font-weight:800}.link small{display:block;color:var(--muted);font-size:.68rem;margin-top:2px}
-.music-row{display:flex;align-items:center;gap:12px}.album{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#8c7bff,#164b66);font-size:1.4rem;flex:none}.track{min-width:0;flex:1}.track strong{display:block;font-size:.9rem}.track small{display:block;color:var(--muted);margin-top:4px;font-size:.75rem;overflow-wrap:anywhere}
-.controls{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{cursor:pointer;border:1px solid #ffffff1c;background:#ffffff09;color:#e8ebff;border-radius:11px;padding:9px 12px;font:inherit;font-size:.78rem;transition:.2s}.btn:hover{border-color:#8c7bff99;background:#8c7bff18}.btn.primary{background:linear-gradient(120deg,#7565e8,#3c9eaf);border:0;color:#fff}.volume{width:82px;accent-color:#8c7bff}.file-label{cursor:pointer}.file-label input{display:none}
+.panel{background:#180a0da8;border:1px solid #ffffff12;border-radius:18px;padding:18px;min-width:0}.panel h2{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:#d5aab0;margin:0 0 15px}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:10px}.link{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #ffffff12;border-radius:13px;color:var(--text);text-decoration:none;background:#ffffff04;transition:.2s}.link:hover{transform:translateY(-3px);border-color:#ff7b8c88;background:#ff7b8c10}.link-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#ff7b8c20;color:#ffc0c7;font-weight:800}.link small{display:block;color:var(--muted);font-size:.68rem;margin-top:2px}
+.music-row{display:flex;align-items:center;gap:12px}.album{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#ff7b8c,#661628);font-size:1.4rem;flex:none}.track{min-width:0;flex:1}.track strong{display:block;font-size:.9rem}.track small{display:block;color:var(--muted);margin-top:4px;font-size:.75rem;overflow-wrap:anywhere}
+.controls{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{cursor:pointer;border:1px solid #ffffff1c;background:#ffffff09;color:#e8ebff;border-radius:11px;padding:9px 12px;font:inherit;font-size:.78rem;transition:.2s}.btn:hover{border-color:#ff7b8c99;background:#ff7b8c18}.btn.primary{background:linear-gradient(120deg,#e86578,#af3c4d);border:0;color:#fff}.volume{width:82px;accent-color:#ff7b8c}.file-label{cursor:pointer}.file-label input{display:none}
 input[type=range]{cursor:pointer}
-.footer{text-align:center;color:#737f9f;font-size:.75rem;padding-top:22px;letter-spacing:.04em}
+.footer{text-align:center;color:#9f7377;font-size:.75rem;padding-top:22px;letter-spacing:.04em}
 @media(max-width:650px){.wrap{width:min(100% - 20px,520px);padding-top:18px}.cover{height:155px}.profile{padding:0 17px 18px}.profile-head{gap:12px}.avatar{width:88px;height:88px;border-radius:23px;font-size:1.8rem}.badge{width:100%;justify-content:center;margin-top:8px}.grid{grid-template-columns:1fr}.links{grid-template-columns:1fr 1fr}.panel{padding:15px}.topbar{font-size:.65rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -79,9 +107,28 @@ input[type=range]{cursor:pointer}
   <div class="footer">DESIGNED IN THE DARK · <span id="year"></span> YUTA xX</div>
 </main>
 <script>
+// Sakura Petal Generator
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.classList.add('petal');
+    const size = Math.random() * 12 + 10;
+    petal.style.width = `${size}px`;
+    petal.style.height = `${size}px`;
+    petal.style.left = `${Math.random() * 100}vw`;
+    const duration = Math.random() * 5 + 4;
+    petal.style.animationDuration = `${duration}s`;
+    petal.style.animationDelay = `${Math.random() * 2}s`;
+    document.body.appendChild(petal);
+    setTimeout(() => {
+        petal.remove();
+    }, (duration + 2) * 1000);
+}
+setInterval(createPetal, 150);
+
 const fileInput=document.getElementById('audioFile');
 const audio=document.getElementById('audio');
 const trackName=document.getElementById('trackName');
+nextTrackStatus=document.getElementById('trackStatus');
 const trackStatus=document.getElementById('trackStatus');
 const playBtn=document.getElementById('playBtn');
 let currentUrl='';
