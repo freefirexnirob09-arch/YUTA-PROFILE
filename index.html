@@ -38,15 +38,17 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;ba
 .link-icon{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:10px;background:#ff304f20;border:1px solid #ff426c55;color:#ff9aa8;font-weight:800;font-size:1.1rem;box-shadow:0 0 10px #ff304f18}
 .link b{display:block;font-size:.86rem}.link small{display:block;color:var(--muted);font-size:.68rem;margin-top:3px}
 .music-row{display:flex;align-items:center;gap:12px}.album{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#ff7b8c,#661628);font-size:1.4rem;flex:none}.track{min-width:0;flex:1}.track strong{display:block;font-size:.9rem}.track small{display:block;color:var(--muted);margin-top:4px;font-size:.75rem;overflow-wrap:anywhere}
-.controls{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{cursor:pointer;border:1px solid #ffffff1c;background:#ffffff09;color:#e8ebff;border-radius:11px;padding:9px 12px;font:inherit;font-size:.78rem;transition:.2s}.btn:hover{border-color:#ff7b8c99;background:#ff7b8c18}.btn.primary{background:linear-gradient(120deg,#e86578,#af3c4d);border:0;color:#fff}.volume{width:82px;accent-color:#ff7b8c}.file-label{cursor:pointer}.file-label input{display:none}
+.controls{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}.btn{cursor:pointer;border:1px solid #ffffff1c;background:#ffffff09;color:#e8ebff;border-radius:11px;padding:9px 12px;font:inherit;font-size:.78rem;transition:.2s}.btn:hover{border-color:#ff7b8c99;background:#ff7b8c18}.btn.primary{background:linear-gradient(120deg,#e86578,#af3c4d);border:0;color:#fff}.volume{width:82px;accent-color:#ff7b8c}.playlist{width:100%;margin-top:12px;background:#16070b;color:#f3f5ff;border:1px solid #ff426c55;border-radius:10px;padding:10px;font:inherit;font-size:.78rem}.playlist option{background:#16070b;color:#f3f5ff}
 input[type=range]{cursor:pointer}
 .footer{text-align:center;color:#9f7377;font-size:.75rem;padding-top:22px;letter-spacing:.04em}
+.entry-gate{position:fixed;inset:0;z-index:20;display:none;place-items:center;padding:22px;background:rgba(5,0,2,.86);backdrop-filter:blur(12px)}.entry-gate.show{display:grid}.entry-card{width:min(420px,100%);padding:28px 22px;text-align:center;border:1px solid #ff426c77;border-radius:22px;background:linear-gradient(145deg,#260811f5,#0d0307f5);box-shadow:0 0 45px #ff183a2b}.entry-card .entry-icon{font-size:2.3rem;color:#ff8b9b;text-shadow:0 0 20px #ff304f66}.entry-card h2{margin:10px 0 8px;font-size:1.2rem;letter-spacing:.08em}.entry-card p{margin:0 0 18px;color:#cba6ab;font-size:.9rem;line-height:1.6}.entry-btn{cursor:pointer;border:0;border-radius:12px;padding:12px 20px;font:inherit;font-weight:750;color:#fff;background:linear-gradient(120deg,#e86578,#af3c4d);box-shadow:0 0 22px #ff304f35}.entry-btn:disabled{opacity:.55;cursor:not-allowed}
 @media(max-width:650px){.wrap{width:min(100% - 20px,520px);padding-top:18px}.cover{height:155px}.profile{padding:0 17px 18px}.profile-head{gap:12px}.avatar{width:88px;height:88px;border-radius:23px;font-size:1.8rem}.badge{width:100%;justify-content:center;margin-top:8px}.grid{grid-template-columns:1fr}.links{grid-template-columns:1fr 1fr}.panel{padding:15px}.topbar{font-size:.65rem}}
 @media(prefers-reduced-motion:reduce){.link{transition:none}}
 </style>
 </head>
 <body>
 <div class="orb one"></div><div class="orb two"></div>
+<div class="entry-gate" id="entryGate" role="dialog" aria-modal="true" aria-labelledby="entryTitle"><div class="entry-card"><div class="entry-icon">♫</div><h2 id="entryTitle">WELCOME TO YUTA xX</h2><p id="entryMessage">Your browser blocked automatic music. Click below to enter with music.</p><button class="entry-btn" id="enterBtn" type="button">▶ Click to Enter</button></div></div>
 <main class="wrap">
   <div class="topbar"><span>PLAYER PROFILE / 001</span><span class="live"><span class="dot"></span> ONLINE VIBES</span></div>
   <section class="card">
@@ -71,10 +73,12 @@ input[type=range]{cursor:pointer}
         </section>
         <section class="panel">
           <h2>♫ Now playing</h2>
-          <div class="music-row"><div class="album">♫</div><div class="track"><strong id="trackName">Choose your soundtrack</strong><small id="trackStatus">Select an MP3 from your device</small></div></div>
+          <div class="music-row"><div class="album">♫</div><div class="track"><strong id="trackName">YUTA Playlist</strong><small id="trackStatus">Choose a song and press Play</small></div></div>
+          <select class="playlist" id="playlist" aria-label="Choose a song"><option value="">Loading playlist…</option></select>
           <div class="controls">
-            <label class="btn file-label">＋ Choose MP3<input id="audioFile" type="file" accept="audio/*"></label>
+            <button class="btn" id="prevBtn" type="button" aria-label="Previous song">⏮ Prev</button>
             <button class="btn primary" id="playBtn" type="button">▶ Play</button>
+            <button class="btn" id="nextBtn" type="button" aria-label="Next song">Next ⏭</button>
             <button class="btn" id="muteBtn" type="button">Mute</button>
             <input class="volume" id="volume" aria-label="Volume" type="range" min="0" max="1" step=".05" value=".7">
           </div>
@@ -99,35 +103,75 @@ function createParticle() {
     setTimeout(() => particle.remove(), 12000);
 }
 setInterval(createParticle, 120);
-const fileInput=document.getElementById('audioFile');
+// Add your public songs here after uploading MP3 files to the repository.
+// Example file location: music/song-name.mp3
+const PLAYLIST = [
+  // { title: 'My Song', artist: 'Artist name', src: 'music/song-name.mp3' },
+  // Add more songs by copying the example line and changing its details.
+];
 const audio=document.getElementById('audio');
 const trackName=document.getElementById('trackName');
 const trackStatus=document.getElementById('trackStatus');
 const playBtn=document.getElementById('playBtn');
-let currentUrl='';
-fileInput.addEventListener('change',()=>{
-  const file=fileInput.files && fileInput.files[0];
-  if(!file)return;
-  if(currentUrl)URL.revokeObjectURL(currentUrl);
-  currentUrl=URL.createObjectURL(file);
-  audio.src=currentUrl;
-  trackName.textContent=file.name.replace(/\.[^.]+$/,'');
-  trackStatus.textContent='Local audio · '+(file.size/1048576).toFixed(1)+' MB';
+const playlistSelect=document.getElementById('playlist');
+const entryGate=document.getElementById('entryGate');
+const enterBtn=document.getElementById('enterBtn');
+const entryMessage=document.getElementById('entryMessage');
+let currentIndex=0;
+function renderPlaylist(){
+  playlistSelect.innerHTML='';
+  if(!PLAYLIST.length){
+    const option=document.createElement('option');option.value='';option.textContent='No songs added yet';playlistSelect.appendChild(option);
+    entryMessage.textContent='Add at least one song to PLAYLIST in index.html to enable music.';
+    enterBtn.disabled=true;enterBtn.textContent='♫ Add a song first';
+    trackName.textContent='YUTA Playlist';
+    trackStatus.textContent='Add MP3 files and update PLAYLIST in index.html';
+    playBtn.disabled=true;playBtn.style.opacity='.55';
+    return;
+  }
+  PLAYLIST.forEach((song,index)=>{const option=document.createElement('option');option.value=String(index);option.textContent=song.title;playlistSelect.appendChild(option);});
+  playBtn.disabled=false;playBtn.style.opacity='1';
+  enterBtn.disabled=false;enterBtn.textContent='▶ Click to Enter';
+  loadTrack(0,false);
+  // Try sound-on autoplay. If the browser blocks it, show the Click to Enter screen.
+  audio.play().then(()=>{entryGate.classList.remove('show');}).catch(()=>{
+    entryMessage.textContent='Your browser blocked automatic music. Click below to enter with music.';
+    entryGate.classList.add('show');
+  });
+}
+function loadTrack(index,autoplay=false){
+  if(!PLAYLIST.length)return;
+  currentIndex=(index+PLAYLIST.length)%PLAYLIST.length;
+  const song=PLAYLIST[currentIndex];
+  audio.src=song.src;
+  playlistSelect.value=String(currentIndex);
+  trackName.textContent=song.title;
+  trackStatus.textContent=song.artist ? song.artist+' · YUTA Playlist' : 'YUTA Playlist';
   audio.load();
-  audio.play().then(()=>playBtn.textContent='❚❚ Pause').catch(()=>{playBtn.textContent='▶ Play';trackStatus.textContent='Press Play to start';});
-});
+  playBtn.textContent='▶ Play';
+  if(autoplay)audio.play().catch(()=>{trackStatus.textContent='Could not play this file. Check the song path.';});
+}
+playlistSelect.addEventListener('change',()=>{const index=Number(playlistSelect.value);if(Number.isInteger(index))loadTrack(index,false);});
 playBtn.addEventListener('click',()=>{
-  if(!audio.src){trackStatus.textContent='Choose an MP3 first';fileInput.click();return;}
-  if(audio.paused){audio.play().then(()=>playBtn.textContent='❚❚ Pause').catch(()=>trackStatus.textContent='Tap Play again to start audio');}
-  else{audio.pause();playBtn.textContent='▶ Play';}
+  if(!PLAYLIST.length)return;
+  if(audio.paused){audio.play().then(()=>entryGate.classList.remove('show')).catch(()=>{trackStatus.textContent='Could not play this file. Check the song path.';});}
+  else audio.pause();
 });
-document.getElementById('muteBtn').addEventListener('click',e=>{
-  audio.muted=!audio.muted;e.currentTarget.textContent=audio.muted?'Unmute':'Mute';
+enterBtn.addEventListener('click',()=>{
+  if(!PLAYLIST.length)return;
+  audio.play().then(()=>{entryGate.classList.remove('show');}).catch(()=>{
+    entryMessage.textContent='Music could not start. Check the MP3 file path, then try again.';
+  });
 });
+document.getElementById('prevBtn').addEventListener('click',()=>loadTrack(currentIndex-1,true));
+document.getElementById('nextBtn').addEventListener('click',()=>loadTrack(currentIndex+1,true));
+document.getElementById('muteBtn').addEventListener('click',e=>{audio.muted=!audio.muted;e.currentTarget.textContent=audio.muted?'Unmute':'Mute';});
 document.getElementById('volume').addEventListener('input',e=>{audio.volume=Number(e.target.value);if(audio.volume>0)audio.muted=false;});
-audio.addEventListener('ended',()=>playBtn.textContent='▶ Play');
-audio.addEventListener('pause',()=>{if(audio.src)playBtn.textContent='▶ Play';});
+audio.addEventListener('ended',()=>loadTrack(currentIndex+1,true));
+audio.addEventListener('pause',()=>{playBtn.textContent='▶ Play';});
 audio.addEventListener('play',()=>playBtn.textContent='❚❚ Pause');
+audio.volume=.7;
+renderPlaylist();
 document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 </body>
